@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know yourself !</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+    #container {
+        text-align: center;
+    }
+    h1 {
+        font-size: 36px;
+        color: #333;
+    }
+    label {
+        font-size: 20px;
+        color: #333;
+    }
+    input[type="number"] {
+        font-size: 18px;
+        padding: 8px;
+        margin: 6px;
+    }
+    button {
+        font-size: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    p {
+        font-size: 24px;
+        color: #333;
+        margin: 12px 0;
+    }
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+<link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+<div id="container">
+    <img src="diace.png" alt="Graphic">
+    <h1>Know yourself ! <br> please put in your birthday.</h1>
+    <label for="year">Year:</label>
+    <input type="number" id="year" min="1000" max="9999">&nbsp;
+    <label for="month">Month:</label>
+    <input type="number" id="month" min="1" max="12">&nbsp;
+    <label for="day">Day:</label>
+    <input type="number" id="day" min="1" max="31">
+    <button onclick="calculateDigitSum()">Go</button><br><br>
+    <p id="magicNumber"></p>
+</div>
+
+<script>
+function calculateDigitSum() {
+    var year = document.getElementById("year").value;
+    var month = document.getElementById("month").value;
+    var day = document.getElementById("day").value;
+
+    var yearSum = calculateSum(year);
+    var monthSum = calculateSum(month);
+    var daySum = calculateSum(day);
+
+    var total = yearSum + monthSum + daySum;
+
+    var totalSum = calculateSum(total);
+
+    var doubleDigitSum = totalSum > 9 ? calculateSum(totalSum) : '';
+
+    var output = total + "/" + totalSum + (doubleDigitSum !== '' ? ("/" + doubleDigitSum) : '');
+
+    document.getElementById("magicNumber").innerText = "Your magic number is: " + output;
+}
+
+function calculateSum(number) {
+    var sum = 0;
+    while (number > 0) {
+        sum += number % 10;
+        number = Math.floor(number / 10);
+    }
+    return sum;
+}
+</script>
+</body>
+</html>
